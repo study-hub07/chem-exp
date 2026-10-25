@@ -1,0 +1,106 @@
+name: Unzip, Build and Deploy
+
+# Repo me project zip upload karo (root me, e.g. site.zip) -> ye workflow usse repo root me extract karega,
+# zip hata dega, commit karega, phir site build karke GitHub Pages par deploy karega.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Extract zip(s) from repo root into repo root
+        run: |
+          shopt -s nullglob dotglob
+          zips=(*.zip)
+          if [ ${#zips[@]} -eq 0 ]; then
+            echo "Root me koi .zip nahi mili - extraction skip."
+            exit 0
+          fi
+          for z in "${zips[@]}"; do
+            echo "== Extracting: $z =="
+            tmp="$(mktemp -d)"
+            unzip -q -o "$z" -d "$tmp"
+            rm -rf "$tmp/__MACOSX"
+            find "$tmp" -name '.DS_Store' -delete
+            src="$tmp"
+            entries=("$tmp"/*)
+            # Agar zip ke andar sirf ek wrapper folder hai, usse flatten karo (duplicate folder nahi banega)
+            if [ ${#entries[@]} -eq 1 ] && [ -d "${entries[0]}" ] && [ "$(basename "${entries[0]}")" != ".github" ]; then
+              src="${entries[0]}"
+              echo "Wrapper folder '$(basename "$src")' hata diya."
+            fi
+            if [ -d "$src/.github" ]; then
+              echo "Note: zip ke andar .github hai - GITHUB_TOKEN workflow files nahi badal sakta, isliye skip."
+            fi
+            rm -rf "$src/.git" "$src/.github"
+            cp -a "$src"/. ./
+            rm -f "$z"
+            rm -rf "$tmp"
+          done
+          for f in package.json index.html; do
+            [ -f "$f" ] || { echo "::error::$f repo root me nahi mila. Zip ke andar project ki files seedhe root par honi chahiye."; exit 1; }
+          done
+          big="$(find . -path ./.git -prune -o -type f -size +100M -print)"
+          if [ -n "$big" ]; then echo "::error::GitHub 100 MB se badi files allow nahi karta: $big"; exit 1; fi
+      - name: Commit extracted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Koi change nahi, commit skip."
+          else
+            git commit -q -m "Extract uploaded project zip"
+            git push
+          fi
+
+  build:
+    needs: extract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install (uses lockfile when committed)
+        run: if [ -f package-lock.json ]; then npm ci; else npm install; fi
+      - run: npm run build
+        env:
+          VITE_APP_VERSION: ${{ vars.VITE_APP_VERSION }}
+          VITE_EMAILJS_SERVICE_ID: ${{ vars.VITE_EMAILJS_SERVICE_ID }}
+          VITE_EMAILJS_TEMPLATE_ID: ${{ vars.VITE_EMAILJS_TEMPLATE_ID }}
+          VITE_EMAILJS_PUBLIC_KEY: ${{ vars.VITE_EMAILJS_PUBLIC_KEY }}
+          VITE_EMAILJS_ATTACH: ${{ vars.VITE_EMAILJS_ATTACH }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
