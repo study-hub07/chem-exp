@@ -12,7 +12,7 @@ const APK_NAME = 'Chemistry-Explorer.apk'
 
 // Feature wording is unchanged from the previous site; only the emoji became line icons.
 const FEATURES: [IconName, string, string][] = [
-  ['flame', 'Streak home screen', 'Daily streak, XP, and a "10 daily flashcards" progress bar on the home screen.'],
+  ['flame', 'Streak home screen widgets', 'Daily streak, XP, and a "10 daily flashcards" progress bar on the home screen.'],
   ['cards', 'Touch-swipe flashcards', 'Hold and drag a card right for Got It (+10 XP) or left for Missed (-3 XP). Chapter-wise sets with Easy/Medium style tags.'],
   ['atom', '9 JEE concept games', 'Periodic Drag, Aufbau Orbital Filler, Electron Parking, Formula Forge, Reaction Balancer, Shape Shift, Trend Detective, Mole Factory and Carbon Chain Crafter, each with levels or modes and played/wins stats.'],
   ['flask', 'Interactive labs', 'Hands-on labs such as Mole Factory: pick moles of each reactant, find the limiting reagent and run the conveyor.'],
@@ -79,7 +79,7 @@ export default function App() {
                   <div><dt>Platform</dt><dd>Android</dd></div>
                   {size && <div><dt>Package size</dt><dd>{size}</dd></div>}
                   <div><dt>Languages</dt><dd>Hindi and English</dd></div>
-                  <div><dt>Syllabus</dt><dd>Class 11 NCERT, JEE</dd></div>
+                  <div><dt>Syllabus</dt><dd>Class 11 NCERT, JEE, NEET </dd></div>
                 </dl>
               </div>
               <div className="hero__media">
@@ -137,12 +137,12 @@ export default function App() {
                 <div><dt>Platform</dt><dd>Android</dd></div>
                 <div><dt>Package size</dt><dd>{size ?? (apk === 'missing' ? 'Unavailable' : '…')}</dd></div>
                 <div><dt>Developer</dt><dd>Aditya Maurya</dd></div>
-                <div><dt>Focus</dt><dd>Chemistry · Class 11 NCERT · JEE</dd></div>
+                <div><dt>Focus</dt><dd>Chemistry • Class 11 NCERT • JEE • NEET </dd></div>
                 <div><dt>Package ID</dt><dd className="mono">com.adityamaurya.chemexplorer</dd></div>
                 <div><dt>Build</dt><dd>Debug build (APK)</dd></div>
-                <div><dt>Version</dt><dd className={version === 'To be confirmed' ? 'tbc' : undefined}>{version}</dd></div>
-                <div><dt>Minimum Android</dt><dd className="tbc">To be confirmed</dd></div>
-                <div><dt>Internet needed</dt><dd className="tbc">To be confirmed</dd></div>
+                <div><dt>Version</dt><dd className={version === '1.0.0' ? 'tbc' : undefined}>{version}</dd></div>
+                <div><dt>Minimum Android</dt><dd className="tbc">All supported</dd></div>
+                <div><dt>Internet needed</dt><dd className="tbc">Can run offline</dd></div>
               </dl>
             </div>
           </section>
@@ -153,12 +153,12 @@ export default function App() {
               <div className="support__copy rise">
                 <p className="eyebrow">Support Us</p>
                 <h2>Support Independent Learning</h2>
-                <p>Chemistry Explorer is an independent educational project. If it helps you, you can support it voluntarily by scanning the QR code. Contributions go toward development, educational content, improvements and future releases.</p>
-                <p className="aside">I'd like to build more learning apps for Physics, Mathematics and Biology in the future. This is a hope, not a promise, and supporting is entirely optional.</p>
+                <p>🇮🇳Chemistry Explorer is an independent educational project.🙏 If it helps you, you can support it voluntarily by scanning the QR code. Contributions go toward development, educational content, improvements and future releases.</p>
+                <p className="aside">💡I'd like to build more learning apps for Physics, Mathematics and Biology in the future.❤️‍🩹 This is a hope, not a promise, and supporting is entirely optional.</p>
               </div>
               <figure className="qrcard rise">
                 <QR />
-                <figcaption>Scan the QR code to support voluntarily.</figcaption>
+                <figcaption>Scan the QR code to support voluntarily. Your small contribution can make a big change.</figcaption>
               </figure>
             </div>
           </section>
