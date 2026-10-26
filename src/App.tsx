@@ -79,7 +79,7 @@ export default function App() {
                   <div><dt>Platform</dt><dd>Android</dd></div>
                   {size && <div><dt>Package size</dt><dd>{size}</dd></div>}
                   <div><dt>Languages</dt><dd>Hindi and English</dd></div>
-                  <div><dt>Syllabus</dt><dd>Class 11 NCERT, JEE</dd></div>
+                  <div><dt>Syllabus</dt><dd>Class 11 NCERT, JEE, NEET</dd></div>
                 </dl>
               </div>
               <div className="hero__media">
@@ -137,7 +137,7 @@ export default function App() {
                 <div><dt>Platform</dt><dd>Android</dd></div>
                 <div><dt>Package size</dt><dd>{size ?? (apk === 'missing' ? 'Unavailable' : '…')}</dd></div>
                 <div><dt>Developer</dt><dd>Aditya Maurya</dd></div>
-                <div><dt>Focus</dt><dd>Chemistry · Class 11 NCERT · JEE</dd></div>
+                <div><dt>Focus</dt><dd>Chemistry · Class 11 NCERT · JEE • NEET</dd></div>
                 <div><dt>Package ID</dt><dd className="mono">com.adityamaurya.chemexplorer</dd></div>
                 <div><dt>Build</dt><dd>Debug build (APK)</dd></div>
                 <div><dt>Version</dt><dd className={version === 'To be confirmed' ? 'tbc' : undefined}>{version}</dd></div>
@@ -153,8 +153,8 @@ export default function App() {
               <div className="support__copy rise">
                 <p className="eyebrow">Support Us</p>
                 <h2>Support Independent Learning</h2>
-                <p>Chemistry Explorer is an independent educational project. If it helps you, you can support it voluntarily by scanning the QR code. Contributions go toward development, educational content, improvements and future releases.</p>
-                <p className="aside">I'd like to build more learning apps for Physics, Mathematics and Biology in the future. This is a hope, not a promise, and supporting is entirely optional.</p>
+                <p>Chemistry Explorer is an independent educational project.🙏 If it helps you, you can support it voluntarily by scanning the QR code.❤️‍🩹 Contributions go toward development, educational content, improvements and future releases.</p>
+                <p className="aside">I'd like to build more learning apps for Physics, Mathematics and Biology in the future.❤️‍🩹 This is a hope, not a promise, and supporting is entirely optional.</p>
               </div>
               <figure className="qrcard rise">
                 <QR />
