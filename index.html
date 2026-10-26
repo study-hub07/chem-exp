@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chemistry Explorer – Chemistry learning app for Android</title>
+  <meta name="description" content="Chemistry Explorer is an independent Android app for Chemistry learning: periodic table, NCERT flashcards, formulas, practice questions and more. Download the APK." />
+  <meta name="theme-color" content="#111827" />
+  <link rel="icon" href="%BASE_URL%assets/logo.png" />
+  <meta property="og:site_name" content="Chemistry Explorer" />
+  <meta property="og:title" content="Chemistry Explorer" />
+  <meta property="og:description" content="An independent Android app for Chemistry learning." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="%BASE_URL%assets/logo.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Paint the brand navy immediately so there is no white flash before the splash screen. -->
+  <style>
+    html, body { background: #111827; font-family: "Teko", sans-serif !important; }
+    body, body * { font-family: "Teko", sans-serif !important; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <noscript>
+    <p style="margin:0;padding:32px 20px;font:16px/1.6 system-ui,sans-serif;color:#F7F5EF">
+      Chemistry Explorer needs JavaScript to display this page.
+      You can still <a href="%BASE_URL%assets/chem-exp.apk" style="color:#C6F36B">download the APK</a>.
+    </p>
+  </noscript>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
